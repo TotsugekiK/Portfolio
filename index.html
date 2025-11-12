@@ -1,0 +1,294 @@
+
+<!DOCTYPE html> <!-- Declare document as HTML5 -->
+<html lang="en"> <!-- Root element with language set to English -->
+<head> <!-- Head contains metadata and resources -->
+    <meta charset="utf-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensure proper scaling on mobile devices -->
+    <title>Portfolio</title> <!-- Title shown in browser tab -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Hint to preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconnect to font static host -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"> <!-- Load a clean system-like web font -->
+    <style> /* Start of internal CSS to style the template */
+        :root { /* Define CSS custom properties (variables) */
+            --bg: #000000; /* Page background color variable */
+            --card: #000000; /* Card background color variable */
+            --muted: #c0c3c5; /* Muted text color variable */
+            --accent: #bdc7e9; /* Accent color variable */
+            --radius: 12px; /* Border radius variable */
+        } /* End :root */
+
+        /* Global reset and typography */
+        * { box-sizing: border-box; } /* Make width/height include padding and border */
+        html,body { height: 100%; margin: 0; } /* Ensure full-height and remove default margin */
+        body { /* Main page styles */
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; /* Font stack */
+            background: linear-gradient(180deg,var(--bg),#071022 60%); /* Subtle gradient background */
+            color: #e6eef8; /* Default text color */
+            line-height: 1.5; /* Comfortable line height */
+            -webkit-font-smoothing:antialiased; /* Improve font rendering on WebKit */
+            padding: 24px; /* Page padding so content doesn't touch edges */
+        }
+
+        /* Wrapper to center content and constrain width */
+        .container {
+            max-width: 1100px; /* Maximum content width */
+            margin: 0 auto; /* Center horizontally */
+            padding: 24px; /* Inner spacing */
+        }
+
+        /* Header with site title and navigation */
+        .site-header {
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center vertically */
+            justify-content: space-between; /* Space between logo and nav */
+            gap: 16px; /* Gap between items */
+            margin-bottom: 32px; /* Space below header */
+        }
+        .brand { /* Brand/logo area */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo { /* Small logo circle */
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg,var(--accent),#4f46e5);
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            flex-shrink: 0;
+        }
+        .brand h1 { /* Brand name text */
+            font-size: 1.125rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        nav { /* Desktop navigation links */
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-link { /* Individual nav link */
+            color: var(--muted);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background .15s, color .15s;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .nav-link:hover { background: rgba(255,255,255,0.03); color: #fff; } /* Hover effect */
+
+        /* Responsive hamburger for small screens */
+        .menu-toggle {
+            display: none; /* Hidden on desktop by default */
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: inherit;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* Hero section with intro and CTA */
+        .hero {
+            display: grid; /* Grid to allow side-by-side layout on wide screens */
+            grid-template-columns: 1fr 360px; /* Two columns: content and quick info */
+            gap: 24px;
+            align-items: start;
+            margin-bottom: 32px;
+        }
+        .intro { background: transparent; padding: 12px 0; } /* Intro content wrapper */
+        .headline { font-size: 2rem; margin: 0 0 12px 0; font-weight: 800; } /* Big headline */
+        .sub { color: var(--muted); margin: 0 0 20px 0; } /* Supporting text */
+        .cta { display: flex; gap: 12px; } /* CTA buttons container */
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .btn-primary { background: var(--accent); color: white; } /* Primary action */
+        .btn-ghost { border: 1px solid rgba(255,255,255,0.06); color: inherit; } /* Secondary action */
+
+        /* Right column quick info card */
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+        .stats { display:flex; gap:12px; justify-content: space-between; } /* Simple stat layout */
+
+        /* Projects section with responsive grid */
+        .section { margin-bottom: 36px; } /* Generic section spacing */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); /* Responsive cards */
+            gap: 16px;
+        }
+        .project {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            transition: transform .15s, box-shadow .15s;
+        }
+        .project:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.6); } /* Lift on hover */
+        .project h3 { margin: 0 0 8px 0; font-size: 1.05rem; }
+        .project p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+        /* About and contact simple styling */
+        .about { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+        .avatar {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 12px;
+            background: linear-gradient(135deg,#0b1220,#071022);
+            padding: 18px;
+            text-align: center;
+        }
+        .avatar img { width: 100%; border-radius: 8px; display:block; }
+
+        /* Contact form styling */
+        form { display: grid; gap: 8px; }
+        input, textarea {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            color: inherit;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            font-family: inherit;
+        }
+        textarea { min-height: 120px; resize: vertical; }
+
+        /* Footer */
+        footer { color: var(--muted); text-align: center; padding: 20px 0; font-size: 0.95rem; }
+
+        /* Responsive tweaks for small screens */
+        @media (max-width: 880px) {
+            .hero, .about { grid-template-columns: 1fr; } /* Stack columns on small screens */
+            .menu-toggle { display: inline-flex; } /* Show hamburger on mobile */
+            nav { display: none; } /* Hide desktop nav on mobile (simple approach) */
+        }
+    </style> <!-- End of internal CSS -->
+</head>
+<body> <!-- Body contains visible content -->
+    <div class="container"> <!-- Main centered container -->
+        <header class="site-header"> <!-- Top header with brand and navigation -->
+            <a class="brand" href="#"> <!-- Link that represents the brand/logo -->
+                <span class="logo" aria-hidden="true"></span> <!-- Decorative logo -->
+                <h1>Your Name</h1> <!-- Your name as the brand text -->
+            </a>
+            <nav> <!-- Desktop navigation links -->
+                <a class="nav-link" href="#projects">Projects</a> <!-- Anchor to projects section -->
+                <a class="nav-link" href="#about">About</a> <!-- Anchor to about section -->
+                <a class="nav-link" href="#contact">Contact</a> <!-- Anchor to contact section -->
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">Menu</button> <!-- Simple mobile menu button -->
+        </header>
+
+        <main> <!-- Main content area -->
+            <section class="hero"> <!-- Hero area introducing you -->
+                <div class="intro"> <!-- Left column with text -->
+                    <p class="kicker" style="color:var(--accent);margin:0 0 8px 0;font-weight:700;">Hi, I'm</p> <!-- Short intro kicker -->
+                    <h2 class="headline">Your Name — Frontend Developer</h2> <!-- Primary headline -->
+                    <p class="sub">I design and build accessible, performant web experiences. I enjoy building small teams and shipping features end-to-end.</p> <!-- Short bio -->
+                    <div class="cta"> <!-- Call-to-action buttons -->
+                        <a class="btn btn-primary" href="#contact">Work with me</a> <!-- Primary CTA -->
+                        <a class="btn btn-ghost" href="#projects">See projects</a> <!-- Secondary CTA -->
+                    </div>
+                </div>
+
+                <aside class="card"> <!-- Right column quick info / stats -->
+                    <h4 style="margin:0 0 8px 0;">Quick facts</h4> <!-- Card title -->
+                    <div class="stats"> <!-- Small stats row -->
+                        <div><strong style="display:block;">5+</strong><small style="color:var(--muted);">Projects</small></div> <!-- Number of projects -->
+                        <div><strong style="display:block;">8 yrs</strong><small style="color:var(--muted);">Experience</small></div> <!-- Years experience -->
+                        <div><strong style="display:block;">Open</strong><small style="color:var(--muted);">to work</small></div> <!-- Availability -->
+                    </div>
+                </aside>
+            </section>
+
+            <section id="projects" class="section"> <!-- Projects section -->
+                <h3 style="margin-top:0;">Selected projects</h3> <!-- Section heading -->
+                <div class="projects-grid"> <!-- Responsive grid of project cards -->
+                    <article class="project"> <!-- Project card -->
+                        <h3>Project One</h3> <!-- Project title -->
+                        <p>Short description of the project, tech used, and your role.</p> <!-- Project summary -->
+                    </article>
+                    <article class="project"> <!-- Another project card -->
+                        <h3>Project Two</h3>
+                        <p>Short description that highlights impact and technologies.</p>
+                    </article>
+                    <article class="project">
+                        <h3>Project Three</h3>
+                        <p>Short description of a side project or open-source contribution.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="about" class="section about"> <!-- About section with avatar -->
+                <div> <!-- Left column with about text -->
+                    <h3>About Me</h3> <!-- Section heading -->
+                    <p style="color:var(--muted);">I am a software developer focused on building reliable user interfaces and experiences. I care about performance, accessibility, and clean design.</p> <!-- About summary -->
+                    <p style="color:var(--muted);">Skills: HTML, CSS, JavaScript, React, accessibility, testing.</p> <!-- Skills list -->
+                </div>
+                <aside class="avatar"> <!-- Right column with avatar or contact highlight -->
+                    <!-- Placeholder image; replace src with your headshot -->
+                    <img src="https://via.placeholder.com/280x180.png?text=Your+Photo" alt="Your portrait"> <!-- Avatar image -->
+                </aside>
+            </section>
+
+            <section id="contact" class="section"> <!-- Contact section -->
+                <h3>Contact</h3> <!-- Section heading -->
+                <form action="#" onsubmit="handleForm(event)"> <!-- Simple form; JavaScript intercepts submit -->
+                    <input type="text" name="name" placeholder="Your name" required> <!-- Name field -->
+                    <input type="email" name="email" placeholder="Your email" required> <!-- Email field -->
+                    <textarea name="message" placeholder="What would you like to build?" required></textarea> <!-- Message field -->
+                    <div style="display:flex;gap:8px;">
+                        <button type="submit" class="btn btn-primary">Send message</button> <!-- Submit button -->
+                        <a class="btn btn-ghost" href="mailto:you@example.com">Email me</a> <!-- Alternative contact -->
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <footer> <!-- Footer with small note -->
+            <p>© <span id="year"></span> Your Name — Built with good intentions.</p> <!-- Copyright and year -->
+        </footer>
+    </div> <!-- End of container -->
+
+    <script> // Start of small JavaScript for interactivity
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear(); // Write the current year
+
+        // Toggle mobile menu visibility (very simple toggle for demo)
+        const menuToggle = document.getElementById('menuToggle'); // Select the menu button
+        menuToggle.addEventListener('click', () => { // Add click handler
+            const nav = document.querySelector('nav'); // Select the nav element
+            if (!nav) return; // Guard if nav not found
+            // Toggle inline display style between none and flex for demo responsiveness
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Basic form handler that prevents real submit (replace with real integration)
+        function handleForm(e) { // Function called on form submit
+            e.preventDefault(); // Prevent default form submission to server
+            const form = e.target; // The submitted form element
+            const data = { // Collect form values into an object
+                name: form.name.value,
+                email: form.email.value,
+                message: form.message.value
+            };
+            // Simple feedback: log and show an alert (replace with nicer UI in production)
+            console.log('Form submission', data); // Log submitted data for developer
+            alert('Thanks, ' + (data.name || 'there') + '! Message received.'); // Show simple confirmation
+            form.reset(); // Reset form fields
+        }
+    </script> <!-- End of JavaScript -->
+</body>
+</html> <!-- End of HTML document -->
