@@ -1,1 +1,1 @@
-# Oten
+# School of Othens
